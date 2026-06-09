@@ -28,6 +28,23 @@ Depois abra:
 http://127.0.0.1:5000
 ```
 
+## Login
+
+Credencial provisória:
+
+```text
+login: admin
+senha: adimin
+```
+
+Para trocar no Vercel, configure variáveis de ambiente:
+
+```text
+APP_ADMIN_USER
+APP_ADMIN_PASSWORD
+SECRET_KEY
+```
+
 ## Publicar no Vercel
 
 1. Suba esta pasta inteira para um repositório no GitHub.

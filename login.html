@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Assistente de Abordagem</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="auth-card">
+      <span class="eyebrow">CANAL AGENTE AUTORIZADO</span>
+      <h1>Acesso restrito</h1>
+      <p>Entre para acessar a ferramenta de abordagem e pós-cliente.</p>
+
+      <form class="auth-form" method="post" action="/login">
+        <label for="username">Login</label>
+        <input id="username" name="username" type="text" autocomplete="username" required />
+
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+        <p id="loginError" class="field-message auth-error" aria-live="polite"></p>
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("error") === "1") {
+      document.querySelector("#loginError").textContent = "Login ou senha inválidos.";
+    }
+  </script>
+</body>
+</html>
