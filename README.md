@@ -8,7 +8,6 @@ Ferramenta Flask para apoio ao atendimento presencial do Canal Agente Autorizado
 cliente_oculto_loja/
   app.py
   style.css
-  vercel.json
   requirements.txt
   README.md
   .gitignore
@@ -55,4 +54,14 @@ SECRET_KEY
 3. Importe o repositório.
 4. Mantenha as configurações padrão e clique em deploy.
 
-O arquivo `vercel.json` força as rotas a passarem pelo Flask. Isso evita que o Vercel entregue o HTML como página estática e pule o login.
+Não use `vercel.json` neste projeto. A Vercel detecta o Flask automaticamente pelo arquivo `app.py` e pelo `requirements.txt`.
+
+Confirme também que estes arquivos não estão na raiz do projeto:
+
+```text
+index.html
+login.html
+script.js
+```
+
+Eles precisam ficar dentro da pasta `private/` para não serem publicados como arquivos estáticos.
