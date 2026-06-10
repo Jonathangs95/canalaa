@@ -389,7 +389,7 @@ p {
 .option-grid,
 .product-grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .primary-grid {
@@ -405,10 +405,10 @@ p {
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 12px;
-  min-height: 112px;
+  gap: 9px;
+  min-height: 88px;
   margin: 0;
-  padding: 16px;
+  padding: 12px 10px;
   border: 1px solid var(--line);
   text-align: center;
   box-shadow: none;
@@ -428,14 +428,16 @@ p {
 .choice-button strong {
   font-size: 16px;
   color: var(--text);
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 .choice-icon {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
   color: #fff;
   background: rgba(255, 255, 255, 0.12);
 }
@@ -1090,7 +1092,7 @@ input:focus {
   }
 
   .choice-button {
-    min-height: 92px;
+    min-height: 78px;
   }
 
   .post-step,
