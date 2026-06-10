@@ -178,6 +178,12 @@ p {
   background: transparent;
 }
 
+.theme-button svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.4;
+}
+
 .theme-button.is-active {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.22);
@@ -397,13 +403,14 @@ p {
 
 .choice-button {
   display: grid;
-  align-content: start;
-  gap: 8px;
-  min-height: 118px;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 112px;
   margin: 0;
   padding: 16px;
   border: 1px solid var(--line);
-  text-align: left;
+  text-align: center;
   box-shadow: none;
   background: rgba(255, 255, 255, 0.09);
 }
@@ -423,7 +430,28 @@ p {
   color: var(--text);
 }
 
-.choice-button span {
+.choice-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.choice-icon svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 2.2;
+}
+
+:root[data-theme="light"] .choice-icon {
+  color: #d9000d;
+  background: rgba(227, 6, 19, 0.1);
+}
+
+.choice-button > span:not(.choice-icon) {
   color: var(--muted);
   font-size: 13px;
   font-weight: 700;
@@ -445,17 +473,23 @@ p {
 }
 
 :root[data-theme="light"] .choice-button.is-active strong,
+:root[data-theme="light"] .choice-button.is-active .choice-icon,
 :root[data-theme="light"] .outcome-button.is-active,
 :root[data-theme="light"] .reason-button.is-active strong,
 :root[data-theme="light"] .reason-button.is-active span {
   color: #fff;
 }
 
-.choice-button.is-active span {
+.choice-button.is-active .choice-icon {
+  color: var(--red);
+  background: #fff;
+}
+
+.choice-button.is-active > span:not(.choice-icon) {
   color: #ffe3e5;
 }
 
-:root[data-theme="light"] .choice-button.is-active span {
+:root[data-theme="light"] .choice-button.is-active > span:not(.choice-icon) {
   color: #fff1f2;
 }
 

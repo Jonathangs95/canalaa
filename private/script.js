@@ -1,6 +1,7 @@
 const motivos = {
   boleto: {
     label: "Pagar boleto",
+    icon: "receipt",
     insight: "Momento de recorrência: resolva rápido e abra uma revisão de plano sem pressão.",
     prioridade: "Alta",
     pergunta: "Você costuma vir todo mês para pagar ou prefere facilitar isso pelo app ou débito automático?",
@@ -9,6 +10,7 @@ const motivos = {
   },
   segundaVia: {
     label: "Segunda via",
+    icon: "file-text",
     insight: "Momento de conta: investigue valor, vencimento, cobrança e conforto financeiro.",
     prioridade: "Média",
     pergunta: "Esse valor veio dentro do que você esperava ou ficou diferente do normal?",
@@ -17,6 +19,7 @@ const motivos = {
   },
   internetLenta: {
     label: "Internet lenta",
+    icon: "wifi-off",
     insight: "Momento de dor técnica: acolha o problema e conecte cobertura, estabilidade e experiência.",
     prioridade: "Muito alta",
     pergunta: "A lentidão acontece em todos os cômodos ou piora em algum lugar específico?",
@@ -25,6 +28,7 @@ const motivos = {
   },
   trocarPlano: {
     label: "Trocar ou reduzir plano",
+    icon: "trending-down",
     insight: "Momento de retenção: compare economia real com perda de benefício antes de reduzir.",
     prioridade: "Alta",
     pergunta: "Você quer reduzir porque o valor ficou alto ou porque sente que não usa tudo que paga hoje?",
@@ -33,6 +37,7 @@ const motivos = {
   },
   comprarCelular: {
     label: "Comprar celular",
+    icon: "smartphone",
     insight: "Momento de compra: conecte aparelho, plano, proteção, internet e portabilidade.",
     prioridade: "Muito alta",
     pergunta: "Você prioriza câmera, bateria, desempenho ou preço?",
@@ -41,6 +46,7 @@ const motivos = {
   },
   chip: {
     label: "Comprar ou trocar chip",
+    icon: "sim-card",
     insight: "Momento móvel: identifique linha nova, troca, portabilidade ou migração para controle.",
     prioridade: "Média",
     pergunta: "Esse chip é para linha nova, troca de aparelho ou trazer número de outra operadora?",
@@ -49,6 +55,7 @@ const motivos = {
   },
   cancelamento: {
     label: "Cancelar serviço",
+    icon: "ban",
     insight: "Momento crítico: ouça primeiro, recupere confiança e só depois apresente alternativa.",
     prioridade: "Crítica",
     pergunta: "O principal motivo do cancelamento é preço, qualidade, atendimento ou mudança de endereço?",
@@ -60,24 +67,28 @@ const motivos = {
 const perfis = {
   basico: {
     label: "Objetivo",
+    icon: "user-check",
     detail: "Quer resolver rápido",
     orientacao: "Use frases curtas, benefício direto e próxima ação clara.",
     fala: "Vou ser bem objetivo para não tomar seu tempo."
   },
   familia: {
     label: "Família",
+    icon: "users",
     detail: "Vários usuários",
     orientacao: "Fale de estabilidade, streaming, jogos, estudo e casa conectada.",
     fala: "Como tem mais gente usando, vale olhar estabilidade e cobertura, não só preço."
   },
   economico: {
     label: "Econômico",
+    icon: "badge-dollar-sign",
     detail: "Sensível a preço",
     orientacao: "Mostre economia, previsibilidade e custo-benefício real.",
     fala: "A ideia é encontrar uma opção que faça sentido no bolso e evite surpresa na conta."
   },
   premium: {
     label: "Premium",
+    icon: "gem",
     detail: "Busca experiência",
     orientacao: "Priorize qualidade, velocidade, benefícios e suporte.",
     fala: "Se você busca experiência melhor, eu posso priorizar qualidade, estabilidade e benefícios."
@@ -87,30 +98,35 @@ const perfis = {
 const produtos = {
   tv: {
     label: "TV",
+    icon: "tv",
     detail: "Cliente já usa TV",
     sugeridos: ["fibra", "movel"],
     direcao: "Use entretenimento como ponte para vender velocidade em casa e mobilidade fora dela."
   },
   fibra: {
     label: "Fibra",
+    icon: "wifi",
     detail: "Cliente já usa internet fixa",
     sugeridos: ["tv", "movel"],
     direcao: "Use qualidade da conexão como base para ampliar a casa conectada e o móvel."
   },
   movel: {
     label: "Móvel",
+    icon: "smartphone",
     detail: "Cliente já usa linha móvel",
     sugeridos: ["fibra", "tv"],
     direcao: "Use consumo de dados e rotina fora de casa para abrir conversa de internet residencial e TV."
   },
   pme: {
     label: "PME",
+    icon: "briefcase-business",
     detail: "Cliente empresarial",
     sugeridos: [],
     direcao: "Não force cross-sell. Faça diagnóstico de operação, continuidade e suporte."
   },
   combo: {
     label: "Combo Multi",
+    icon: "package-check",
     detail: "Cliente já é convergente",
     sugeridos: [],
     direcao: "Não abra novo leque. Reforce benefícios, fidelização, upgrade e experiência."
@@ -300,11 +316,17 @@ function aplicarTema(theme) {
   });
 }
 
-function optionButton({ id, label, detail, type }) {
+function atualizarIcones() {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}
+
+function optionButton({ id, label, detail, icon, type }) {
   return `
-    <button class="choice-button" type="button" data-type="${type}" data-id="${id}">
+    <button class="choice-button" type="button" data-type="${type}" data-id="${id}" aria-label="${label}. ${detail}">
+      <span class="choice-icon" aria-hidden="true"><i data-lucide="${icon}"></i></span>
       <strong>${label}</strong>
-      <span>${detail}</span>
     </button>
   `;
 }
@@ -314,6 +336,7 @@ function renderizarOpcoes() {
     id,
     label: item.label,
     detail: item.insight,
+    icon: item.icon,
     type: "motivo"
   })).join("");
 
@@ -321,6 +344,7 @@ function renderizarOpcoes() {
     id,
     label: item.label,
     detail: item.detail,
+    icon: item.icon,
     type: "perfil"
   })).join("");
 
@@ -328,8 +352,11 @@ function renderizarOpcoes() {
     id,
     label: item.label,
     detail: item.detail,
+    icon: item.icon,
     type: "produto"
   })).join("");
+
+  atualizarIcones();
 }
 
 function selecionar(type, id) {
@@ -607,6 +634,7 @@ renderizarOpcoes();
 atualizarEtapas();
 atualizarIndicadores();
 aplicarTema(localStorage.getItem("portalTheme") || "dark");
+atualizarIcones();
 
 document.querySelectorAll(".choice-button").forEach((button) => {
   button.addEventListener("click", () => selecionar(button.dataset.type, button.dataset.id));
