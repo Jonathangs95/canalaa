@@ -62,8 +62,39 @@ SECRET_KEY
 
 ## Dados salvos
 
-Os registros de pós-venda são salvos em `data/registros.json` no ambiente local.
-Para uso definitivo no Vercel com várias lojas e funcionários, o ideal é trocar esse arquivo por um banco de dados externo.
+Se `DATABASE_URL` ou `POSTGRES_URL` estiver configurado, os registros são salvos no Postgres/Supabase.
+Sem essa variável, o projeto usa `data/registros.json` apenas como fallback local.
+
+No Vercel, configure uma destas variáveis:
+
+```text
+DATABASE_URL
+```
+
+Use a connection string do Supabase neste formato, trocando `[YOUR-PASSWORD]` pela senha real:
+
+```text
+postgresql://postgres:[YOUR-PASSWORD]@db.jpzyxazyfjtpkysxknse.supabase.co:5432/postgres
+```
+
+O sistema cria a tabela `registros` automaticamente no primeiro registro. Se preferir criar manualmente no SQL Editor do Supabase:
+
+```sql
+create table if not exists registros (
+  id uuid primary key,
+  created_at timestamptz not null default now(),
+  usuario text,
+  perfil_acesso text,
+  data timestamptz,
+  motivo text,
+  perfil text,
+  produto_atual text,
+  oferta jsonb not null default '[]'::jsonb,
+  resultado text,
+  pos_motivo text,
+  sinais jsonb not null default '[]'::jsonb
+);
+```
 
 ## Publicar no Vercel
 
