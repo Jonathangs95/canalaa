@@ -46,7 +46,7 @@ const motivos = {
   },
   chip: {
     label: "Comprar ou trocar chip",
-    icon: "credit-card",
+    icon: "scan-line",
     insight: "Momento móvel: identifique linha nova, troca, portabilidade ou migração para controle.",
     prioridade: "Média",
     pergunta: "Esse chip é para linha nova, troca de aparelho ou trazer número de outra operadora?",
