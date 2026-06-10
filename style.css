@@ -264,6 +264,12 @@ p {
   background: rgba(255, 255, 255, 0.06);
 }
 
+:root[data-theme="light"] .map-step {
+  color: #363948;
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(18, 20, 30, 0.16);
+}
+
 .map-step span {
   display: grid;
   place-items: center;
@@ -275,8 +281,15 @@ p {
   background: rgba(255, 255, 255, 0.12);
 }
 
+:root[data-theme="light"] .map-step span {
+  color: #171821;
+  background: rgba(18, 20, 30, 0.08);
+  border: 1px solid rgba(18, 20, 30, 0.1);
+}
+
 .map-step strong {
   font-size: 13px;
+  color: inherit;
 }
 
 .map-step.is-active {
@@ -287,6 +300,18 @@ p {
 
 .map-step.is-active span {
   background: linear-gradient(135deg, var(--red), #ff5862);
+}
+
+:root[data-theme="light"] .map-step.is-active {
+  color: #fff;
+  border-color: rgba(227, 6, 19, 0.24);
+  background: linear-gradient(135deg, #d9000d, #ff4b55);
+}
+
+:root[data-theme="light"] .map-step.is-active span {
+  color: #d9000d;
+  background: #fff;
+  border-color: rgba(255, 255, 255, 0.65);
 }
 
 .journey-board {
