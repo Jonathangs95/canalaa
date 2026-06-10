@@ -5,19 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jornada Comercial | Canal Agente Autorizado</title>
   <link rel="stylesheet" href="style.css" />
+  <script>
+    document.documentElement.dataset.theme = localStorage.getItem("portalTheme") || "dark";
+  </script>
 </head>
 <body>
   <main class="app-shell">
     <header class="topbar">
-      <div>
+      <div class="topbar-brand">
+        <div class="top-meta" aria-label="Data e hora atual">
+          <span id="currentDate">--</span>
+          <span id="currentTime">--:--:--</span>
+        </div>
         <span class="eyebrow">CANAL AGENTE AUTORIZADO</span>
         <h1>Jornada Comercial</h1>
       </div>
-      <nav class="section-menu" aria-label="Navegação da ferramenta">
-        <a href="#jornada">Jornada</a>
-        <a href="#posCliente">Pós-venda</a>
-        <a href="/logout">Sair</a>
-      </nav>
+      <div class="topbar-actions">
+        <div class="theme-switch" aria-label="Seletor de tema">
+          <button class="theme-button" type="button" data-theme-option="dark">Escuro</button>
+          <button class="theme-button" type="button" data-theme-option="light">Claro</button>
+        </div>
+        <nav class="section-menu" aria-label="Navegação da ferramenta">
+          <a href="#jornada">Jornada</a>
+          <a href="#posCliente">Pós-venda</a>
+          <a href="/logout">Sair</a>
+        </nav>
+      </div>
     </header>
 
     <section class="journey-shell" id="jornada">
