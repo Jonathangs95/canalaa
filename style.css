@@ -28,6 +28,8 @@
     radial-gradient(circle at bottom right, rgba(255, 120, 128, 0.16), transparent 32%),
     linear-gradient(135deg, #f8f9fd 0%, #eef1f7 58%, #ffffff 100%);
   --grid-line: rgba(18, 20, 30, 0.045);
+  --light-surface: rgba(255, 255, 255, 0.96);
+  --light-soft: rgba(23, 24, 33, 0.05);
 }
 
 * {
@@ -117,26 +119,6 @@ p {
   min-width: min(520px, 100%);
 }
 
-.top-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.top-meta span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 8px 11px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 900;
-  background: rgba(255, 255, 255, 0.08);
-}
-
 .topbar h1 {
   margin: 10px 0 0;
   font-size: clamp(28px, 4vw, 42px);
@@ -159,6 +141,12 @@ p {
   font-weight: 800;
 }
 
+:root[data-theme="light"] .eyebrow {
+  color: #b0000a;
+  background: rgba(227, 6, 19, 0.1);
+  border-color: rgba(227, 6, 19, 0.18);
+}
+
 .topbar-actions {
   display: grid;
   justify-items: end;
@@ -177,13 +165,15 @@ p {
 
 .theme-button {
   width: auto;
-  min-width: 76px;
+  min-width: 38px;
+  height: 38px;
   margin: 0;
-  padding: 9px 12px;
+  padding: 0;
   border: 1px solid transparent;
   border-radius: 12px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 18px;
+  line-height: 1;
   box-shadow: none;
   background: transparent;
 }
@@ -210,6 +200,29 @@ p {
   font-weight: 900;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="light"] .section-menu a,
+:root[data-theme="light"] .theme-switch,
+:root[data-theme="light"] .journey-map,
+:root[data-theme="light"] .map-step,
+:root[data-theme="light"] .journey-step,
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .offer-card,
+:root[data-theme="light"] .script-box,
+:root[data-theme="light"] .post-step,
+:root[data-theme="light"] .post-summary,
+:root[data-theme="light"] .post-action-box,
+:root[data-theme="light"] .post-kpis div {
+  background: var(--light-surface);
+}
+
+:root[data-theme="light"] .theme-button {
+  color: #444758;
+}
+
+:root[data-theme="light"] .theme-button.is-active {
+  color: #fff;
 }
 
 .section-menu a:hover,
@@ -370,8 +383,19 @@ p {
   background: rgba(255, 255, 255, 0.09);
 }
 
+:root[data-theme="light"] .choice-button,
+:root[data-theme="light"] .outcome-button,
+:root[data-theme="light"] .reason-button,
+:root[data-theme="light"] .ghost-button,
+:root[data-theme="light"] .copy-button {
+  color: #171821;
+  background: var(--light-soft);
+  border-color: rgba(18, 20, 30, 0.14);
+}
+
 .choice-button strong {
   font-size: 16px;
+  color: var(--text);
 }
 
 .choice-button span {
@@ -385,6 +409,21 @@ p {
   border-color: rgba(255, 255, 255, 0.42);
   background: linear-gradient(135deg, rgba(227, 6, 19, 0.9), rgba(255, 88, 98, 0.54));
   box-shadow: 0 18px 42px rgba(227, 6, 19, 0.28);
+}
+
+:root[data-theme="light"] .choice-button.is-active,
+:root[data-theme="light"] .outcome-button.is-active,
+:root[data-theme="light"] .reason-button.is-active {
+  color: #fff;
+  border-color: rgba(227, 6, 19, 0.28);
+  background: linear-gradient(135deg, #d9000d, #ff4b55);
+}
+
+:root[data-theme="light"] .choice-button.is-active strong,
+:root[data-theme="light"] .outcome-button.is-active,
+:root[data-theme="light"] .reason-button.is-active strong,
+:root[data-theme="light"] .reason-button.is-active span {
+  color: #fff;
 }
 
 .choice-button.is-active span {
@@ -414,6 +453,12 @@ p {
   background:
     linear-gradient(135deg, rgba(227, 6, 19, 0.24), rgba(255, 255, 255, 0.08)),
     rgba(255, 255, 255, 0.09);
+}
+
+:root[data-theme="light"] .offer-card {
+  background:
+    linear-gradient(135deg, rgba(227, 6, 19, 0.1), rgba(255, 255, 255, 0.96)),
+    var(--light-surface);
 }
 
 .offer-card h3 {
@@ -511,6 +556,10 @@ p {
   border-top: 1px solid var(--line);
   color: #ffd5d8 !important;
   font-size: 15px !important;
+}
+
+:root[data-theme="light"] .next-action {
+  color: #b0000a !important;
 }
 
 .post-panel {
@@ -624,6 +673,10 @@ p {
   background: rgba(255, 255, 255, 0.12);
 }
 
+:root[data-theme="light"] .outcome-button {
+  color: #171821;
+}
+
 .outcome-button.is-active,
 .reason-button.is-active {
   border-color: rgba(255, 255, 255, 0.42);
@@ -665,6 +718,7 @@ p {
 .reason-button strong {
   margin-bottom: 8px;
   font-size: 15px;
+  color: var(--text);
 }
 
 .reason-button span {
@@ -690,6 +744,11 @@ p {
   color: #fff;
   background: rgba(255, 255, 255, 0.1);
   cursor: pointer;
+}
+
+:root[data-theme="light"] .checkbox-card {
+  color: #171821;
+  background: var(--light-soft);
 }
 
 .checkbox-card input {
@@ -719,6 +778,12 @@ p {
   background:
     linear-gradient(135deg, rgba(227, 6, 19, 0.22), rgba(255, 255, 255, 0.08)),
     rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="light"] .post-summary {
+  background:
+    linear-gradient(135deg, rgba(227, 6, 19, 0.08), rgba(255, 255, 255, 0.96)),
+    var(--light-surface);
 }
 
 .status-pill {
@@ -931,13 +996,11 @@ input:focus {
     padding: 16px;
   }
 
-  .top-meta,
   .theme-switch,
   .section-menu {
     width: 100%;
   }
 
-  .top-meta span,
   .theme-button,
   .section-menu a {
     flex: 1;

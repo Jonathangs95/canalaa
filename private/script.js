@@ -288,24 +288,7 @@ const posTags = document.querySelector("#posTags");
 const posAcao = document.querySelector("#posAcao");
 const registrarPos = document.querySelector("#registrarPos");
 const limparPos = document.querySelector("#limparPos");
-const currentDate = document.querySelector("#currentDate");
-const currentTime = document.querySelector("#currentTime");
 const themeButtons = document.querySelectorAll(".theme-button");
-
-function atualizarRelogio() {
-  const agora = new Date();
-  currentDate.textContent = new Intl.DateTimeFormat("pt-BR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  }).format(agora);
-  currentTime.textContent = new Intl.DateTimeFormat("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  }).format(agora);
-}
 
 function aplicarTema(theme) {
   const tema = theme === "light" ? "light" : "dark";
@@ -623,9 +606,7 @@ function limparPesquisaPosCliente() {
 renderizarOpcoes();
 atualizarEtapas();
 atualizarIndicadores();
-atualizarRelogio();
 aplicarTema(localStorage.getItem("portalTheme") || "dark");
-setInterval(atualizarRelogio, 1000);
 
 document.querySelectorAll(".choice-button").forEach((button) => {
   button.addEventListener("click", () => selecionar(button.dataset.type, button.dataset.id));
