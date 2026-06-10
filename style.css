@@ -227,8 +227,18 @@ p {
   color: #444758;
 }
 
+:root[data-theme="light"] .theme-button svg {
+  color: #444758;
+  stroke: currentColor;
+}
+
 :root[data-theme="light"] .theme-button.is-active {
   color: #fff;
+}
+
+:root[data-theme="light"] .theme-button.is-active svg {
+  color: #fff;
+  stroke: currentColor;
 }
 
 .section-menu a:hover,
@@ -453,6 +463,11 @@ p {
   background: rgba(227, 6, 19, 0.1);
 }
 
+:root[data-theme="light"] .choice-icon svg {
+  color: #d9000d;
+  stroke: currentColor;
+}
+
 .choice-button > span:not(.choice-icon) {
   color: var(--muted);
   font-size: 13px;
@@ -485,6 +500,10 @@ p {
 .choice-button.is-active .choice-icon {
   color: var(--red);
   background: #fff;
+}
+
+.choice-button.is-active .choice-icon svg {
+  stroke: currentColor;
 }
 
 .choice-button.is-active > span:not(.choice-icon) {
@@ -1055,6 +1074,17 @@ input:focus {
   .panel {
     border-radius: 20px;
     padding: 16px;
+  }
+
+  .topbar-brand {
+    display: grid;
+    justify-items: center;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .topbar h1 {
+    text-align: center;
   }
 
   .theme-switch,
