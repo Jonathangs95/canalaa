@@ -3,109 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assistente de Abordagem | Loja</title>
+  <title>Jornada Comercial | Canal Agente Autorizado</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app-shell">
-    <section class="hero-card">
-      <div class="hero-content">
+    <header class="topbar">
+      <div>
         <span class="eyebrow">CANAL AGENTE AUTORIZADO</span>
-        <h1>Transforme cada visita em uma oportunidade de venda</h1>
-        <p>
-          Selecione o motivo da vinda do cliente e receba um roteiro rápido de abordagem,
-          oferta e quebra de objeção para apoiar o vendedor no atendimento presencial.
-        </p>
+        <h1>Jornada Comercial</h1>
       </div>
-      <div class="pulse-orb" aria-hidden="true"></div>
-    </section>
+      <nav class="section-menu" aria-label="Navegação da ferramenta">
+        <a href="#jornada">Jornada</a>
+        <a href="#posCliente">Pós-venda</a>
+        <a href="/logout">Sair</a>
+      </nav>
+    </header>
 
-    <nav class="section-menu" aria-label="Navegação da ferramenta">
-      <a href="#atendimento">Atendimento</a>
-      <a href="#posCliente">Pós-cliente</a>
-      <a href="/logout">Sair</a>
-    </nav>
-
-    <section class="workspace" id="atendimento">
-      <aside class="panel input-panel">
-        <h2>Entrada do cliente</h2>
-        <label for="motivo">Motivo da vinda</label>
-        <select id="motivo">
-          <option value="">Selecione uma opção</option>
-          <option value="boleto">Pagar boleto</option>
-          <option value="segundaVia">Segunda via de conta</option>
-          <option value="internetLenta">Internet lenta</option>
-          <option value="trocarPlano">Trocar ou reduzir plano</option>
-          <option value="comprarCelular">Comprar celular</option>
-          <option value="chip">Comprar ou trocar chip</option>
-          <option value="cancelamento">Cancelar serviço</option>
-        </select>
-
-        <label for="perfil">Perfil percebido</label>
-        <select id="perfil">
-          <option value="basico">Cliente objetivo / quer resolver rápido</option>
-          <option value="familia">Família / usa bastante internet</option>
-          <option value="economico">Sensível a preço</option>
-          <option value="premium">Busca qualidade / melhor experiência</option>
-        </select>
-
-        <button id="gerar" type="button">Gerar sugestão</button>
-        <p id="aviso" class="field-message" aria-live="polite"></p>
+    <section class="journey-shell" id="jornada">
+      <aside class="journey-map" aria-label="Mapa da jornada">
+        <div class="map-step is-active" data-map-step="motivo">
+          <span>1</span>
+          <strong>Motivo</strong>
+        </div>
+        <div class="map-step" data-map-step="perfil">
+          <span>2</span>
+          <strong>Perfil</strong>
+        </div>
+        <div class="map-step" data-map-step="produto">
+          <span>3</span>
+          <strong>Produto atual</strong>
+        </div>
+        <div class="map-step" data-map-step="oferta">
+          <span>4</span>
+          <strong>Oferta guiada</strong>
+        </div>
+        <div class="map-step" data-map-step="pos">
+          <span>5</span>
+          <strong>Pós-venda</strong>
+        </div>
       </aside>
 
-      <section class="panel result-panel" id="resultado">
-        <div class="result-header">
-          <div>
-            <span class="eyebrow">Roteiro sugerido</span>
-            <h2 id="tituloResultado">Aguardando seleção</h2>
+      <section class="journey-board">
+        <article class="journey-step is-open" id="stepMotivo">
+          <div class="step-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>Motivo da vinda</h2>
+              <p>Comece pelo que trouxe o cliente para a loja.</p>
+            </div>
           </div>
-          <span id="score" class="score">--</span>
-        </div>
+          <div id="motivoGrid" class="option-grid primary-grid"></div>
+        </article>
 
-        <div class="cards-grid">
-          <article class="mini-card">
-            <h3>Abordagem</h3>
-            <p id="abordagem">Escolha o motivo da vinda para gerar uma recomendação.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>Oportunidade</h3>
-            <p id="oportunidade">Aqui aparecerá o produto ou serviço mais indicado.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>Pergunta-chave</h3>
-            <p id="pergunta">Uma pergunta simples para abrir conversa comercial.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>Quebra de objeção</h3>
-            <p id="objecao">Argumento rápido para reduzir resistência do cliente.</p>
-          </article>
-        </div>
-
-        <div class="script-box">
-          <div class="script-box-header">
-            <h3>Fala pronta para o vendedor</h3>
-            <button id="copiarFala" class="copy-button" type="button" disabled>Copiar fala</button>
+        <article class="journey-step is-locked" id="stepPerfil">
+          <div class="step-heading">
+            <span class="step-number">02</span>
+            <div>
+              <h2>Perfil percebido</h2>
+              <p>Depois do motivo, escolha a melhor linguagem para conduzir a conversa.</p>
+            </div>
           </div>
-          <p id="fala">Selecione um motivo e clique em gerar sugestão.</p>
-          <p id="acao" class="next-action">A próxima ação aparecerá aqui.</p>
-        </div>
+          <div id="perfilGrid" class="option-grid"></div>
+        </article>
+
+        <article class="journey-step is-locked" id="stepProduto">
+          <div class="step-heading">
+            <span class="step-number">03</span>
+            <div>
+              <h2>Produto atual</h2>
+              <p>Marque o produto que o cliente já possui ou veio tratar.</p>
+            </div>
+          </div>
+          <div id="produtoGrid" class="product-grid"></div>
+        </article>
+
+        <article class="journey-step is-locked recommendation-panel" id="stepOferta">
+          <div class="step-heading">
+            <span class="step-number">04</span>
+            <div>
+              <h2>Oferta guiada</h2>
+              <p>O sistema abre a próxima oferta mais natural para a jornada.</p>
+            </div>
+          </div>
+
+          <div class="recommendation-layout">
+            <section class="offer-card">
+              <span id="prioridade" class="score">--</span>
+              <h3 id="tituloOferta">Selecione as etapas anteriores</h3>
+              <p id="resumoOferta">A recomendação será montada automaticamente conforme motivo, perfil e produto atual.</p>
+              <div id="produtosSugeridos" class="suggested-products"></div>
+            </section>
+
+            <section class="script-box">
+              <div class="script-box-header">
+                <h3>Fala pronta para o vendedor</h3>
+                <button id="copiarFala" class="copy-button" type="button" disabled>Copiar fala</button>
+              </div>
+              <p id="fala">A fala aparece quando a jornada estiver completa.</p>
+              <p id="pergunta" class="next-action">A pergunta-chave aparece aqui.</p>
+              <p id="objecao" class="next-action">A quebra de objeção aparece aqui.</p>
+            </section>
+          </div>
+        </article>
       </section>
     </section>
 
-    <section class="panel post-panel" id="posCliente">
+    <section class="panel post-panel is-locked" id="posCliente">
       <div class="post-header">
         <div>
-          <span class="eyebrow">Pós-cliente</span>
-          <h2>Pesquisa rápida de conversão</h2>
-          <p>
-            Registre o motivo do atendimento ter dado certo ou errado sem digitar nada.
-            Primeiro selecione o resultado principal, depois marque os sinais observados.
-          </p>
+          <span class="eyebrow">Pós-venda</span>
+          <h2>Pesquisa rápida de resultado</h2>
+          <p>Finalize a jornada marcando o que fez a abordagem dar certo ou onde ela travou.</p>
         </div>
-        <div class="post-kpis" aria-label="Resumo do pós-cliente">
+        <div class="post-kpis" aria-label="Resumo do pós-venda">
           <div>
             <strong id="totalRegistros">0</strong>
             <span>registros</span>
@@ -154,14 +165,14 @@
         <aside class="post-summary" aria-live="polite">
           <span id="posStatus" class="status-pill">Aguardando análise</span>
           <h3 id="posTitulo">Ainda sem leitura do atendimento</h3>
-          <p id="posResumo">A ferramenta vai montar uma leitura automática para liderança e treinamento assim que os cliques forem feitos.</p>
+          <p id="posResumo">A leitura automática aparece conforme a pesquisa pós-venda é preenchida.</p>
           <div id="posTags" class="tag-list"></div>
           <div class="post-action-box">
             <strong>Próxima ação sugerida</strong>
-            <p id="posAcao">Selecione o resultado para liberar a recomendação.</p>
+            <p id="posAcao">Conclua a jornada comercial para liberar a pesquisa.</p>
           </div>
           <div class="summary-actions">
-            <button id="registrarPos" type="button" disabled>Registrar pós-cliente</button>
+            <button id="registrarPos" type="button" disabled>Registrar pós-venda</button>
             <button id="limparPos" class="ghost-button" type="button">Limpar</button>
           </div>
         </aside>
