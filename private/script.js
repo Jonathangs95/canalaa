@@ -633,7 +633,7 @@ function limparPesquisaPosCliente() {
 renderizarOpcoes();
 atualizarEtapas();
 atualizarIndicadores();
-aplicarTema(localStorage.getItem("portalTheme") || "dark");
+aplicarTema(localStorage.getItem("portalTheme") || "light");
 atualizarIcones();
 
 document.querySelectorAll(".choice-button").forEach((button) => {
