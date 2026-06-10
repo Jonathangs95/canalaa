@@ -192,8 +192,31 @@ p {
   background: var(--surface);
 }
 
+.nav-icon-button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  box-shadow: none;
+  background: var(--surface);
+}
+
+.nav-icon-button svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
 .section-menu a:hover,
-.section-menu a:focus {
+.section-menu a:focus,
+.nav-icon-button:hover,
+.nav-icon-button:focus {
   color: #ffffff;
   border-color: var(--red);
   background: var(--red);
@@ -769,6 +792,189 @@ p {
   line-height: 1.55;
 }
 
+.dashboard-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.dashboard-header h2 {
+  margin: 12px 0 8px;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 700;
+}
+
+.dashboard-header p {
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.dashboard-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dashboard-kpis div,
+.dashboard-card,
+.dashboard-table-wrap {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.dashboard-kpis div {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  min-height: 92px;
+  padding: 16px;
+}
+
+.dashboard-kpis strong {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.dashboard-kpis span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dashboard-card {
+  padding: 16px;
+}
+
+.dashboard-card h3,
+.table-title h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ranking-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.ranking-item span {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.ranking-item strong {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: var(--radius-xs);
+  color: #ffffff;
+  background: var(--red);
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--muted);
+}
+
+.dashboard-table-wrap {
+  overflow: hidden;
+}
+
+.table-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.table-title span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.dashboard-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+}
+
+.dashboard-table th {
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dashboard-table td {
+  color: var(--text);
+}
+
+.table-pill {
+  display: inline-flex;
+  align-items: center;
+  min-width: 82px;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 999px;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--red-soft);
+}
+
+.table-pill.is-success {
+  color: var(--success);
+  background: rgba(18, 134, 79, 0.12);
+}
+
+.table-pill.is-loss {
+  color: var(--red);
+}
+
 .tag-list {
   min-height: 30px;
   margin: 10px 0 14px;
@@ -927,13 +1133,16 @@ label {
 @media (max-width: 880px) {
   .topbar,
   .post-header,
+  .dashboard-header,
+  .dashboard-grid,
   .post-layout,
   .recommendation-layout {
     grid-template-columns: 1fr;
   }
 
   .topbar,
-  .post-header {
+  .post-header,
+  .dashboard-header {
     display: grid;
   }
 
@@ -980,13 +1189,15 @@ label {
   }
 
   .theme-button,
-  .section-menu a {
+  .section-menu a,
+  .nav-icon-button {
     flex: 1;
     justify-content: center;
     text-align: center;
   }
 
   .journey-map,
+  .dashboard-kpis,
   .primary-grid,
   .option-grid:not(.primary-grid),
   .product-grid,

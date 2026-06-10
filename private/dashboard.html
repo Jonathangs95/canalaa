@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Canal Agente Autorizado</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    document.documentElement.dataset.theme = localStorage.getItem("portalTheme") || "light";
+  </script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="eyebrow">CANAL AGENTE AUTORIZADO</span>
+        <h1>Dashboard</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="theme-switch" aria-label="Seletor de tema">
+          <button class="theme-button" type="button" data-theme-option="dark" aria-label="Modo escuro">
+            <i data-lucide="moon"></i>
+          </button>
+          <button class="theme-button" type="button" data-theme-option="light" aria-label="Modo claro">
+            <i data-lucide="sun"></i>
+          </button>
+        </div>
+        <nav class="section-menu" aria-label="Navegação administrativa">
+          <a href="/">Jornada</a>
+          <button id="atualizarDashboard" class="nav-icon-button" type="button" aria-label="Atualizar dashboard" title="Atualizar dashboard">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+          <a href="/logout">Sair</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="panel dashboard-panel">
+      <div class="dashboard-header">
+        <div>
+          <span class="eyebrow">Login teste</span>
+          <h2>Registros de pós-venda</h2>
+          <p>Leitura dos atendimentos registrados pelo acesso de teste.</p>
+        </div>
+        <span id="dashboardStatus" class="status-pill">Carregando</span>
+      </div>
+
+      <div class="dashboard-kpis" aria-label="Indicadores do teste">
+        <div>
+          <strong id="dashTotal">0</strong>
+          <span>registros</span>
+        </div>
+        <div>
+          <strong id="dashConversao">--</strong>
+          <span>conversão</span>
+        </div>
+        <div>
+          <strong id="dashSucesso">0</strong>
+          <span>deu certo</span>
+        </div>
+        <div>
+          <strong id="dashPerda">0</strong>
+          <span>deu errado</span>
+        </div>
+      </div>
+
+      <section class="dashboard-grid">
+        <article class="dashboard-card">
+          <h3>Motivos mais registrados</h3>
+          <div id="motivosRanking" class="ranking-list"></div>
+        </article>
+        <article class="dashboard-card">
+          <h3>Produtos na jornada</h3>
+          <div id="produtosRanking" class="ranking-list"></div>
+        </article>
+      </section>
+
+      <section class="dashboard-table-wrap">
+        <div class="table-title">
+          <h3>Histórico completo</h3>
+          <span id="ultimaAtualizacao">--</span>
+        </div>
+        <div class="table-scroll">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Resultado</th>
+                <th>Motivo</th>
+                <th>Perfil</th>
+                <th>Produto</th>
+                <th>Oferta</th>
+                <th>Pós-venda</th>
+                <th>Sinais</th>
+              </tr>
+            </thead>
+            <tbody id="registrosTabela">
+              <tr>
+                <td colspan="8">Carregando registros...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

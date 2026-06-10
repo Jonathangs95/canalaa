@@ -304,6 +304,7 @@ const posTags = document.querySelector("#posTags");
 const posAcao = document.querySelector("#posAcao");
 const registrarPos = document.querySelector("#registrarPos");
 const limparPos = document.querySelector("#limparPos");
+const resetJornada = document.querySelector("#resetJornada");
 const themeButtons = document.querySelectorAll(".theme-button");
 
 function aplicarTema(theme) {
@@ -497,6 +498,17 @@ function atualizarIndicadores() {
   taxaSucesso.textContent = total ? `${Math.round((sucessos / total) * 100)}%` : "--";
 }
 
+function resetarJornada() {
+  estado.motivo = "";
+  estado.perfil = "";
+  estado.produto = "";
+  limparPesquisaPosCliente();
+  atualizarBotoes();
+  atualizarEtapas();
+  atualizarOferta();
+  document.querySelector("#jornada")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function selecionarResultado(resultadoSelecionado) {
   estadoPos.resultado = resultadoSelecionado;
   estadoPos.motivo = "";
@@ -596,12 +608,12 @@ function atualizarLeitura() {
   }
 }
 
-function registrarPesquisaPosCliente() {
+function montarRegistroPosCliente() {
   const motivoItem = posCliente[estadoPos.resultado]?.motivos[estadoPos.motivo];
   const oferta = montarOferta();
-  if (!motivoItem || !oferta) return;
+  if (!motivoItem || !oferta) return null;
 
-  historicoPosCliente.push({
+  return {
     data: new Date().toISOString(),
     motivo: motivos[estado.motivo].label,
     perfil: perfis[estado.perfil].label,
@@ -610,14 +622,49 @@ function registrarPesquisaPosCliente() {
     resultado: estadoPos.resultado,
     posMotivo: motivoItem.label,
     sinais: [...estadoPos.sinais].map((index) => motivoItem.sinais[index])
+  };
+}
+
+async function salvarRegistroServidor(registro) {
+  const response = await fetch("/api/registros", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(registro)
   });
 
-  localStorage.setItem("historicoPosCliente", JSON.stringify(historicoPosCliente));
-  atualizarIndicadores();
-  registrarPos.textContent = "Registrado";
-  setTimeout(() => {
-    registrarPos.textContent = "Registrar pós-venda";
-  }, 1500);
+  if (!response.ok) {
+    throw new Error("Não foi possível salvar o registro.");
+  }
+
+  return response.json();
+}
+
+async function registrarPesquisaPosCliente() {
+  const registro = montarRegistroPosCliente();
+  if (!registro) return;
+
+  registrarPos.disabled = true;
+  registrarPos.textContent = "Salvando...";
+
+  try {
+    await salvarRegistroServidor(registro);
+    historicoPosCliente.push(registro);
+    localStorage.setItem("historicoPosCliente", JSON.stringify(historicoPosCliente));
+    atualizarIndicadores();
+    registrarPos.textContent = "Registrado";
+    setTimeout(() => {
+      registrarPos.textContent = "Registrar pós-venda";
+      atualizarLeitura();
+    }, 1500);
+  } catch {
+    registrarPos.textContent = "Erro ao salvar";
+    registrarPos.disabled = false;
+    setTimeout(() => {
+      registrarPos.textContent = "Registrar pós-venda";
+    }, 1800);
+  }
 }
 
 function limparPesquisaPosCliente() {
@@ -647,6 +694,7 @@ themeButtons.forEach((button) => {
 copiarFala.addEventListener("click", copiarTexto);
 registrarPos.addEventListener("click", registrarPesquisaPosCliente);
 limparPos.addEventListener("click", limparPesquisaPosCliente);
+resetJornada.addEventListener("click", resetarJornada);
 outcomeButtons.forEach((button) => {
   button.addEventListener("click", () => selecionarResultado(button.dataset.outcome));
 });

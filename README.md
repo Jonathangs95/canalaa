@@ -35,20 +35,35 @@ http://127.0.0.1:5000
 
 ## Login
 
-Credencial provisória:
+Credenciais provisórias:
 
 ```text
+Admin
 login: admin
 senha: adimin
+
+Teste
+login: teste
+senha: teste10
 ```
+
+O acesso `teste` usa a jornada comercial e registra as pesquisas de pós-venda.
+O acesso `admin` abre o dashboard para acompanhar os registros feitos pelo usuário de teste.
 
 Para trocar no Vercel, configure variáveis de ambiente:
 
 ```text
 APP_ADMIN_USER
 APP_ADMIN_PASSWORD
+APP_TEST_USER
+APP_TEST_PASSWORD
 SECRET_KEY
 ```
+
+## Dados salvos
+
+Os registros de pós-venda são salvos em `data/registros.json` no ambiente local.
+Para uso definitivo no Vercel com várias lojas e funcionários, o ideal é trocar esse arquivo por um banco de dados externo.
 
 ## Publicar no Vercel
 
