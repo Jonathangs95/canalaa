@@ -4,6 +4,7 @@ import os
 from functools import wraps
 from pathlib import Path
 from threading import Lock
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from uuid import uuid4
 
 from flask import Flask, jsonify, redirect, request, send_from_directory, session, url_for
@@ -92,10 +93,23 @@ def write_registros(registros):
 def database_url():
     if not DATABASE_URL:
         return ""
-    if "sslmode=" in DATABASE_URL:
-        return DATABASE_URL
-    separator = "&" if "?" in DATABASE_URL else "?"
-    return f"{DATABASE_URL}{separator}sslmode=require"
+
+    parsed = urlsplit(DATABASE_URL)
+    allowed_params = {"sslmode", "connect_timeout", "application_name"}
+    query_params = {
+        key: value
+        for key, value in parse_qsl(parsed.query, keep_blank_values=True)
+        if key in allowed_params
+    }
+    query_params.setdefault("sslmode", "require")
+
+    return urlunsplit((
+        parsed.scheme,
+        parsed.netloc,
+        parsed.path,
+        urlencode(query_params),
+        parsed.fragment,
+    ))
 
 
 def database_enabled():
