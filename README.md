@@ -71,7 +71,15 @@ No Vercel, configure uma destas variáveis:
 DATABASE_URL
 ```
 
-Use a connection string do Supabase neste formato, trocando `[YOUR-PASSWORD]` pela senha real:
+Para Vercel, use a connection string do **pooler/Supavisor** do Supabase, não a conexão direta `db...supabase.co:5432`.
+No Supabase, vá em `Project Settings > Database > Connection pooling` e copie a URI do pooler.
+Ela costuma ter este formato:
+
+```text
+postgresql://postgres.jpzyxazyfjtpkysxknse:SUA-SENHA@aws-...pooler.supabase.com:6543/postgres
+```
+
+A conexão direta abaixo funciona em ambientes com IPv6, mas pode falhar na Vercel:
 
 ```text
 postgresql://postgres:[YOUR-PASSWORD]@db.jpzyxazyfjtpkysxknse.supabase.co:5432/postgres

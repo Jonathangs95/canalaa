@@ -22,6 +22,7 @@ DATA_DIR = BASE_DIR / "data"
 REGISTROS_FILE = DATA_DIR / "registros.json"
 REGISTROS_LOCK = Lock()
 DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL", "")
+RUNNING_ON_VERCEL = bool(os.environ.get("VERCEL"))
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "troque-esta-chave-em-producao")
@@ -146,6 +147,8 @@ def row_to_registro(row):
 
 def save_registro(registro):
     if not database_enabled():
+        if RUNNING_ON_VERCEL:
+            raise RuntimeError("Banco de dados não configurado na Vercel.")
         registros_salvos = read_registros()
         registros_salvos.append(registro)
         write_registros(registros_salvos)
@@ -185,6 +188,8 @@ def save_registro(registro):
 
 def list_registros_teste():
     if not database_enabled():
+        if RUNNING_ON_VERCEL:
+            raise RuntimeError("Banco de dados não configurado na Vercel.")
         return [
             registro for registro in read_registros()
             if registro.get("perfilAcesso") == "teste"
@@ -294,10 +299,25 @@ def registros():
             "sinais": payload.get("sinais", []),
         }
 
-        registro_salvo = save_registro(registro)
+        try:
+            registro_salvo = save_registro(registro)
+        except Exception:
+            app.logger.exception("Erro ao salvar registro de pós-venda")
+            return jsonify({
+                "ok": False,
+                "error": "Não foi possível salvar no banco de dados.",
+            }), 500
+
         return jsonify({"ok": True, "registro": registro_salvo}), 201
 
     if session.get("role") != "admin":
         return jsonify({"error": "Acesso restrito ao admin."}), 403
 
-    return jsonify({"registros": list_registros_teste()})
+    try:
+        return jsonify({"registros": list_registros_teste()})
+    except Exception:
+        app.logger.exception("Erro ao listar registros de pós-venda")
+        return jsonify({
+            "ok": False,
+            "error": "Não foi possível carregar os registros.",
+        }), 500
